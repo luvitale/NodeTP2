@@ -34,7 +34,7 @@ newCounter(); // 2
 */
 function contador() {
   let valor = 0
-  return valor => ++valor
+  return () => ++valor
 }
 
 /*
