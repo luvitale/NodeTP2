@@ -2,7 +2,26 @@
 Realizar una función que reciba dos callbacks. El primer callback devuelve el array de objetos que se deben unir luego del tiempo en segundos que indica el retorno del segundo callback. La función devolverá una promesa. Se espera que dicha promesa, devuelva el resultado luego de la cantidad de segundos indicada. En caso de no recibirse un array, se devolverá este mensaje de error: 'Array de entrada no válido'. Si el callback no proporciona un tiempo válido, se devolverá 'Tiempo de entrada no válido' 
 */
 function objectMerge(array, tiempo) {
-  return 
+  return new Promise((resolve, reject) => {
+    const arrayDeObjetos = array()
+    const tiempoEnSegundos = tiempo()
+
+    if (!Array.isArray(arrayDeObjetos)) {
+      reject('Array de entrada no válido')
+    }
+
+    else if (typeof tiempoEnSegundos != 'number') {
+      reject('Tiempo de entrada no válido')
+    }
+
+    else {
+      const tiempoEnMilisegundos = tiempoEnSegundos * 1000
+      const arrayDeObjetosUnidos = arrayDeObjetos.reduce(
+        (objActual, objAnterior) => ({...objActual, ...objAnterior})
+      )
+      setTimeout(() => resolve(arrayDeObjetosUnidos), tiempoEnMilisegundos)
+    }
+  })
 }
 
 /*
